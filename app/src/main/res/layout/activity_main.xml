@@ -31,7 +31,9 @@
       android:layout_height="wrap_content"
       android:layout_weight="2"
       android:layout_margin="8dp"
-      android:inputType="textCapCharacters"/>
+      android:inputType="textCapCharacters"
+      android:maxLength="4"
+      android:hint="@string/guess_hint"/>
 
 
     <Button

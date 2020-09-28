@@ -1,4 +1,5 @@
 <resources>
   <string name="app_name">Codebreaker</string>
-  <string name="summit">Summit</string>
+  <string name="summit">Submit</string>
+  <string name="guess_hint">Guess</string>
 </resources>
