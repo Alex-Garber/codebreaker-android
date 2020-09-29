@@ -1,4 +1,4 @@
-package edu.cnm.deepdive.codebreaker;
+package edu.cnm.deepdive.codebreaker.controller;
 
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -9,6 +9,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import edu.cnm.deepdive.codebreaker.R;
 import edu.cnm.deepdive.codebreaker.model.Code.Guess;
 import edu.cnm.deepdive.codebreaker.model.Game;
 import java.security.SecureRandom;
