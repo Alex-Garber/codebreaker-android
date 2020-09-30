@@ -2,4 +2,6 @@
   <string name="app_name">Codebreaker</string>
   <string name="summit">Submit</string>
   <string name="guess_hint">Guess</string>
+  <string name="new_game">New game</string>
+  <string name="new_game_condensed">New</string>
 </resources>
