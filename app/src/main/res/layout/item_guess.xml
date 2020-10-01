@@ -2,18 +2,56 @@
 <androidx.constraintlayout.widget.ConstraintLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
-  android:layout_height="48dp"
-  xmlns:app="http://schemas.android.com/apk/res-auto">
+  android:layout_height="@dimen/guess_height"
+  android:padding="@dimen/half_static_spacing"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
+
+
+  <LinearLayout
+    android:id="@+id/guss_container"
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:layout_margin="@dimen/half_static_spacing"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toStartOf="@id/result_container"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"/>
 
   <ImageView
     android:id="@+id/result_container"
     android:layout_width="0dp"
     android:layout_height="0dp"
+    android:layout_margin="@dimen/half_static_spacing"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintDimensionRatio="W,1:1"
-  android:src="@drawable/result_guess"
+   android:src="@drawable/result_guess"
     android:contentDescription="@string/results_of_guess"/>
+
+  <TextView
+    android:id="@+id/correct"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/half_static_spacing"
+
+    tools:text="2"
+    style="@style/GuessResultText"
+    app:layout_constraintLeft_toLeftOf="@id/result_container"
+    app:layout_constraintTop_toTopOf="@id/result_container"/>
+  <TextView
+    android:id="@+id/close"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/half_static_spacing"
+    android:textSize="18sp"
+    style="@style/GuessResultText"
+    app:layout_constraintBottom_toBottomOf="@id/result_container"
+    app:layout_constraintRight_toRightOf="@id/result_container"/>
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

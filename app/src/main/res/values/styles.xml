@@ -7,4 +7,10 @@
     <item name="colorAccent">@color/colorAccent</item>
   </style>
 
+  <style name="GuessResultText">
+
+    <item name="android:includeFontPadding">false</item>
+    <item name="android:textSize">@dimen/result_text_size</item>
+  </style>
+
 </resources>

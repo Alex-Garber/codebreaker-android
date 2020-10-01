@@ -13,19 +13,20 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import edu.cnm.deepdive.codebreaker.R;
+import edu.cnm.deepdive.codebreaker.adapter.GuessAdapter;
 import edu.cnm.deepdive.codebreaker.model.Code.Guess;
 import edu.cnm.deepdive.codebreaker.model.Game;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements OnClickListener {
-  private static final String pool = "ROYGBIV";
+  private static final String pool = "ROYGBV";
   private static final int CODE_LENGTH = 4;
   private ListView guessList;
   private EditText guess;
   private Button summit;
   private Game game;
-  private ArrayAdapter<Guess> adapter;
+  private GuessAdapter adapter;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +37,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     summit = findViewById(R.id.summit);
     summit.setOnClickListener(this);
     game = new Game(pool, CODE_LENGTH, new SecureRandom());
-    adapter =
-        new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, new ArrayList<Guess>());
+    adapter = new GuessAdapter(this);
     guessList.setAdapter(adapter);
   }
 
