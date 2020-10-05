@@ -19,7 +19,7 @@ import java.util.Map;
 
 
 public class GuessAdapter extends ArrayAdapter<Guess> {
-  private static final char[] colorCharacters = {'R', 'O', 'Y', 'G', 'B', 'i', 'V'};
+  private static final char[] colorCharacters = {'R', 'O', 'Y', 'G', 'B', 'I', 'V'};
   private static final int[] colorValues = {Color.RED, 0xffffa500, Color.YELLOW, Color.GREEN, Color.BLUE, 0xff4b0082, 0xffee82ee};
   private final Map<Character, Integer> colorMap;
   private final LayoutInflater inflater;
