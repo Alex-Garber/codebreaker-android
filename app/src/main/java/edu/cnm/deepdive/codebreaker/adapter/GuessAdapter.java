@@ -1,7 +1,6 @@
 package edu.cnm.deepdive.codebreaker.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,24 +13,20 @@ import androidx.annotation.Nullable;
 import edu.cnm.deepdive.codebreaker.R;
 import edu.cnm.deepdive.codebreaker.model.Code.Guess;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 
 public class GuessAdapter extends ArrayAdapter<Guess> {
-  private static final char[] colorCharacters = {'R', 'O', 'Y', 'G', 'B', 'I', 'V'};
-  private static final int[] colorValues = {Color.RED, 0xffffa500, Color.YELLOW, Color.GREEN, Color.BLUE, 0xff4b0082, 0xffee82ee};
   private final Map<Character, Integer> colorMap;
   private final LayoutInflater inflater;
 
-  public GuessAdapter(@NonNull Context context) {
+  public GuessAdapter(@NonNull Context context,
+      Map<Character, Integer> colorMap) {
 
     super(context, R.layout.item_guess, new ArrayList<Guess>());
     inflater = LayoutInflater.from(context);
-    colorMap = new HashMap<>();
-    for (int i = 0; i < colorCharacters.length; i++) {
-      colorMap.put(colorCharacters[i], colorValues[i]);
-    }
+
+    this.colorMap = colorMap;
   }
 
   @NonNull

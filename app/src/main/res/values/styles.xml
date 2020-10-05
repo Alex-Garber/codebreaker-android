@@ -12,5 +12,12 @@
     <item name="android:includeFontPadding">false</item>
     <item name="android:textSize">@dimen/result_text_size</item>
   </style>
+  
+  <style name="GuessNumber">
+    <item name="android:textSize">@dimen/guess_number_size</item>
+    <item name="android:textAlignment">viewEnd</item>
+    <item name="android:includeFontPadding">false</item>
+    <item name="android:paddingEnd">@dimen/guess_number_padding</item>
+  </style>
 
 </resources>

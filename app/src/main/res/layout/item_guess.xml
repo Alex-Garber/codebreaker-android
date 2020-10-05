@@ -9,12 +9,10 @@
 
   <TextView
     android:id="@+id/guess_number"
-    android:layout_width="48dp"
+    android:layout_width="@dimen/guess_number_width"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/half_static_spacing"
-    android:textSize="24sp"
-    android:textAlignment="viewEnd"
-    android:includeFontPadding="false"
+    style="@style/GuessNumber"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintBottom_toBottomOf="parent"
