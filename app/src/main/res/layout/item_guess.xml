@@ -7,14 +7,28 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools">
 
+  <TextView
+    android:id="@+id/guess_number"
+    android:layout_width="48dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/half_static_spacing"
+    android:textSize="24sp"
+    android:textAlignment="viewEnd"
+    android:includeFontPadding="false"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    tools:text="10"/>
+
+
 
   <LinearLayout
     android:id="@+id/guss_container"
     android:layout_width="0dp"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    android:layout_margin="@dimen/half_static_spacing"
-    app:layout_constraintStart_toStartOf="parent"
+    android:layout_margin="0dp"
+    app:layout_constraintStart_toEndOf="@id/guess_number"
     app:layout_constraintEnd_toStartOf="@id/result_container"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintBottom_toBottomOf="parent"/>

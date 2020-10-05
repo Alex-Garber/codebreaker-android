@@ -20,6 +20,7 @@ import java.security.SecureRandom;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements OnClickListener {
+
   private static final String pool = "ROYGBV";
   private static final int CODE_LENGTH = 4;
   private ListView guessList;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
   private Button summit;
   private Game game;
   private GuessAdapter adapter;
+  private SecureRandom rng;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -36,24 +38,32 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     guess = findViewById(R.id.guess);
     summit = findViewById(R.id.summit);
     summit.setOnClickListener(this);
-    game = new Game(pool, CODE_LENGTH, new SecureRandom());
     adapter = new GuessAdapter(this);
-    guessList.setAdapter(adapter);
+    rng = new SecureRandom();
+    startGame();
+  }
+
+  private void startGame() {
+    game = new Game(pool, CODE_LENGTH, rng);
+    resetList();
   }
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
-     super.onCreateOptionsMenu(menu);
-     getMenuInflater().inflate(R.menu.options, menu);
-     return true;
+    super.onCreateOptionsMenu(menu);
+    getMenuInflater().inflate(R.menu.options, menu);
+    return true;
   }
 
   @Override
   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
     boolean handled = true;
-    switch (item.getItemId()){
+    switch (item.getItemId()) {
       case R.id.new_game:
-        //  TODO start new game.
+        startGame();
+        break;
+      case R.id.restart_game:
+        restartGame();
         break;
       default:
         handled = super.onOptionsItemSelected(item);
@@ -76,7 +86,15 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
   }
 
+  private void restartGame() {
+    game.restart();
+    resetList();
+  }
 
+  private void resetList() {
+    adapter.clear();
+    guessList.setAdapter(adapter);
+  }
 
 
 }

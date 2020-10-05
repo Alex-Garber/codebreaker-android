@@ -5,4 +5,6 @@
   <string name="new_game">New game</string>
   <string name="new_game_condensed">New</string>
   <string name="results_of_guess">Results of guess</string>
+  <string name="restart_game">Restart game</string>
+  <string name="restart_game_condensed">Restart</string>
 </resources>
