@@ -3,12 +3,12 @@
   xmlns:app="http://schemas.android.com/apk/res-auto">
 
 <SeekBarPreference
-  android:key="code_length_pref"
-  app:min="3"
-  android:max="6"
-  android:defaultValue="4"
-  app:seekBarIncrement="1"
+  android:key="@string/code_length_pref_key"
+  app:min="@integer/code_length_pref_min"
+  android:max="@integer/code_length_pref_max"
+  android:defaultValue="@integer/code_length_pref_default"
+  app:seekBarIncrement="@integer/code_length_pref_increment"
   app:showSeekBarValue="true"
-  android:title="Code length"
-  android:summary="Length of secret code &amp; required length of al guesses"/>
+  android:title="@string/code_length_pref_title"
+  android:summary="@string/code_length_pref_summary"/>
 </PreferenceScreen>

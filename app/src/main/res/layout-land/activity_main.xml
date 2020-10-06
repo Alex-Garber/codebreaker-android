@@ -26,7 +26,7 @@
       android:layout_height="wrap_content"
       android:layout_margin="@dimen/half_margin"
       android:inputType="textCapCharacters"
-      android:maxLength="4"
+
       android:hint="@string/guess_hint"/>
 
 

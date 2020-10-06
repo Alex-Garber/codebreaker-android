@@ -2,6 +2,8 @@ package edu.cnm.deepdive.codebreaker.controller;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,14 +25,19 @@ import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity{
-
+public class MainActivity extends AppCompatActivity implements InputFilter {
+  private static final String INVALID_CHAR_PATTERN = String.format("[^%s]" , MainViewModel.pool);
   private ListView guessList;
   private EditText guess;
   private MainViewModel viewModel;
+  private int codeLength;
+
   private static final int[] colorValues =
       {Color.RED, 0xffffa500, Color.YELLOW, Color.GREEN, Color.BLUE, 0xff4b0082, 0xffee82ee};
   private static final Map<Character, Integer> colorMap = buildColorMAp(MainViewModel.pool.toCharArray(), colorValues);
+
+  private GuessAdapter adapter;
+  private Button summit;
 
 
   @Override
@@ -41,7 +48,21 @@ public class MainActivity extends AppCompatActivity{
     setupViewModel();
   }
 
+  @Override
+  public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int destart,
+      int destend) {
+    String modifiedSource = source.toString().toUpperCase().replaceAll(INVALID_CHAR_PATTERN, "");
+    StringBuilder builder = new StringBuilder(dest);
+    builder.replace(destart, destend, modifiedSource);
+    if (builder.length() > codeLength){
+      modifiedSource
+          = modifiedSource.substring(0, modifiedSource.length() - (builder.length() - codeLength));
+    }
+    int newLength = dest.length() - (destend - destart) +modifiedSource.length();
+    summit.setEnabled(newLength == codeLength);
+    return modifiedSource;
 
+  }
 
 
   @Override
@@ -74,17 +95,18 @@ public class MainActivity extends AppCompatActivity{
   }
 
   private void setupViewModel() {
-    View guessControls = findViewById(R.id.guess_controls);
+      adapter = new GuessAdapter(MainActivity.this, colorMap);
     viewModel = new ViewModelProvider(this).get(MainViewModel.class);
     viewModel.getGame().observe(this, (game) -> {
-      GuessAdapter adapter = new GuessAdapter(MainActivity.this, colorMap);
+      adapter.clear();
       adapter.addAll(game.getGuesses());
       guessList.setAdapter(adapter);
       guessList.setSelection(adapter.getCount() - 1);
+      codeLength= game.getLength();
       guess.setText("");
     });
     viewModel.getSolved().observe(this, solved ->
-        guessControls.setVisibility(solved ? View.INVISIBLE : View.VISIBLE));
+        findViewById(R.id.guess_controls).setVisibility(solved ? View.INVISIBLE : View.VISIBLE));
     viewModel.getThrowable().observe(this, (throwable) -> {
       if (throwable != null){
         Toast.makeText(this, throwable.getLocalizedMessage(), Toast.LENGTH_LONG).show();
@@ -95,7 +117,9 @@ public class MainActivity extends AppCompatActivity{
   private void setupViews() {
     guessList = findViewById(R.id.guess_list);
     guess = findViewById(R.id.guess);
-    findViewById(R.id.summit).setOnClickListener(v -> recordGuess());
+    guess.setFilters(new InputFilter[]{this});
+    summit = findViewById(R.id.summit);
+    summit.setOnClickListener((view) -> recordGuess());
   }
 
   private void startGame() {
