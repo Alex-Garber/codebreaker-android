@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<SeekBarPreference
+  android:key="code_length_pref"
+  app:min="3"
+  android:max="6"
+  android:defaultValue="4"
+  app:seekBarIncrement="1"
+  app:showSeekBarValue="true"
+  android:title="Code length"
+  android:summary="Length of secret code &amp; required length of al guesses"/>
+</PreferenceScreen>
