@@ -3,6 +3,7 @@ package edu.cnm.deepdive.codebreaker.controller;
 import android.graphics.Color;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -10,6 +11,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import edu.cnm.deepdive.codebreaker.R;
 import edu.cnm.deepdive.codebreaker.adapter.GuessAdapter;
 import edu.cnm.deepdive.codebreaker.model.Code.Guess;
@@ -23,30 +26,22 @@ public class MainActivity extends AppCompatActivity{
 
   private ListView guessList;
   private EditText guess;
-  private Button summit;
-  private Game game;
-  private GuessAdapter adapter;
-  private SecureRandom rng;
+  private MainViewModel viewModel;
   private static final int[] colorValues =
       {Color.RED, 0xffffa500, Color.YELLOW, Color.GREEN, Color.BLUE, 0xff4b0082, 0xffee82ee};
   private static final Map<Character, Integer> colorMap = buildColorMAp(MainViewModel.pool.toCharArray(), colorValues);
+
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-    guessList = findViewById(R.id.guess_list);
-    guess = findViewById(R.id.guess);
-    summit = findViewById(R.id.summit);
-    summit.setOnClickListener(v -> recordGuess());
-    adapter = new GuessAdapter(this, colorMap);
-    rng = new SecureRandom();
-    startGame();
+    setupViews();
+    setupViewModel();
   }
 
-  private void startGame() {
-    game = new Game(MainViewModel.pool, MainViewModel.CODE_LENGTH, rng);
-    resetList();
-  }
+
+
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
@@ -72,28 +67,42 @@ public class MainActivity extends AppCompatActivity{
     return handled;
   }
 
+  private void setupViewModel() {
+    View guessControls = findViewById(R.id.guess_controls);
+    viewModel = new ViewModelProvider(this).get(MainViewModel.class);
+    viewModel.getGame().observe(this, (game) -> {
+      GuessAdapter adapter = new GuessAdapter(MainActivity.this, colorMap);
+      adapter.addAll(game.getGuesses());
+      guessList.setAdapter(adapter);
+      guessList.setSelection(adapter.getCount() - 1);
+      guess.setText("");
+    });
+    viewModel.getSolved().observe(this, solved ->
+        guessControls.setVisibility(solved ? View.INVISIBLE : View.VISIBLE));
+    viewModel.getThrowable().observe(this, (throwable) -> {
+      if (throwable != null){
+        Toast.makeText(this, throwable.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+      }
+    });
+  }
+
+  private void setupViews() {
+    guessList = findViewById(R.id.guess_list);
+    guess = findViewById(R.id.guess);
+    findViewById(R.id.summit).setOnClickListener(v -> recordGuess());
+  }
+
+  private void startGame() {
+    viewModel.startGame();
+  }
 
   private void recordGuess() {
-    try {
-      String text = this.guess.getText().toString().toUpperCase();
-      Guess guess = game.guess(text);
-      adapter.add(guess);
-      guessList.setSelection(adapter.getCount() - 1);
-      this.guess.setText("");
-    } catch (IllegalArgumentException e) {
-      Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
-    }
+    viewModel.guess(guess.getText().toString().trim().toUpperCase());
 
   }
 
   private void restartGame() {
-    game.restart();
-    resetList();
-  }
-
-  private void resetList() {
-    adapter.clear();
-    guessList.setAdapter(adapter);
+  viewModel.restartGame();
   }
 
   private static Map<Character, Integer> buildColorMAp(char[] chars, int[] values){
