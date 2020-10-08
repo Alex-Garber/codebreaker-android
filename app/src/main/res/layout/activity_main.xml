@@ -5,49 +5,17 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  tools:context=".controller.MainActivity">
+  tools:context=".controller.MainActivity"
+  tools:viewBindingIgnore="true">
 
-  <ListView
-    android:id="@+id/guess_list"
-    android:layout_width="match_parent"
+  <androidx.fragment.app.FragmentContainerView
+    android:id="@+id/game_fragment_container"
+    android:name="edu.cnm.deepdive.codebreaker.controller.GameFragment"
+    android:layout_width="0dp"
     android:layout_height="0dp"
     app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintBottom_toTopOf="@id/guess_controls"/>
-
-  <LinearLayout
-    android:id="@+id/guess_controls"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="@dimen/half_margin"
-    android:gravity="end|center_vertical"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintBottom_toBottomOf="parent">
-
-    <EditText
-      android:id="@+id/guess"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_weight="2"
-      android:layout_margin="@dimen/half_margin"
-      android:inputType="textCapCharacters"
-
-      android:hint="@string/guess_hint"/>
-
-
-    <Button
-      android:id="@+id/summit"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_weight="1"
-      android:layout_margin="@dimen/half_margin"
-      android:text="@string/summit"/>
-
-
-
-
-
-  </LinearLayout>
+    app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
