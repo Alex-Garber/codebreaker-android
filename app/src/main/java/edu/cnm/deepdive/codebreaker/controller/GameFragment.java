@@ -12,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Spinner;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,6 +21,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 import edu.cnm.deepdive.codebreaker.R;
+import edu.cnm.deepdive.codebreaker.adapter.CodeCharacterAdapter;
 import edu.cnm.deepdive.codebreaker.adapter.GuessAdapter;
 import edu.cnm.deepdive.codebreaker.databinding.FragmentGameBinding;
 import edu.cnm.deepdive.codebreaker.viewmodel.MainViewModel;
@@ -37,12 +39,12 @@ public class GameFragment extends Fragment implements InputFilter{
 
   private Map<Character, String> colorLabelMap;
   private Map<Character, Integer> colorValueMap;
-  private int[] colorValues;
+  private Character[] codeCharacters;
   private MainViewModel viewModel;
   private int codeLength;
   private GuessAdapter adapter;
   private FragmentGameBinding binding;
-
+  private Spinner[] spinners;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -56,15 +58,11 @@ public class GameFragment extends Fragment implements InputFilter{
       @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
     binding = FragmentGameBinding.inflate(getLayoutInflater());
+    setupMaps();
     setupViews();
-    char[] colorCodes = getString(R.string.color_codes).toCharArray();
-    Resources resources = getContext().getResources();
-    int[] colorValues = resources.getIntArray(R.array.color_values);
-    String[] colorLabels = resources.getStringArray(R.array.color_labels);
-    colorValueMap = buildColorMAp(colorCodes, colorValues);
-    colorLabelMap = buildLabelMap(colorCodes, colorLabels);
     return binding.getRoot();
   }
+
 
   @Override
   public void onViewCreated(@NonNull View view,
@@ -119,21 +117,48 @@ public class GameFragment extends Fragment implements InputFilter{
     adapter = new GuessAdapter(activity, colorValueMap, colorLabelMap);
     viewModel = new ViewModelProvider(activity).get(MainViewModel.class);
     LifecycleOwner lifecycleOwner = getViewLifecycleOwner();
-    viewModel.getGame().observe(lifecycleOwner, (game) -> {
-      adapter.clear();
-      adapter.addAll(game.getGuesses());
-      binding.guessList.setAdapter(adapter);
-      binding.guessList.setSelection(adapter.getCount() - 1);
-      codeLength= game.getLength();
-      binding.guess.setText("");
-    });
+    viewModel.getGame().observe(lifecycleOwner, this::updateGameDisplay);
     viewModel.getSolved().observe(lifecycleOwner, solved ->
         binding.guessControls.setVisibility(solved ? View.INVISIBLE : View.VISIBLE));
   }
 
+  private void updateGameDisplay(edu.cnm.deepdive.codebreaker.model.Game game) {
+    adapter.clear();
+    adapter.addAll(game.getGuesses());
+    binding.guessList.setAdapter(adapter);
+    binding.guessList.setSelection(adapter.getCount() - 1);
+    codeLength= game.getLength();
+
+
+  }
+  private void setupMaps() {
+    char[] colorCodes = getString(R.string.color_codes).toCharArray();
+   codeCharacters = getString(R.string.color_codes).chars()
+        .mapToObj(value -> (char) value)
+        .toArray(Character[]::new);
+    Resources resources = getResources();
+    int[] colorValues = resources.getIntArray(R.array.color_values);
+    String[] colorLabels = resources.getStringArray(R.array.color_labels);
+    colorValueMap = buildColorMAp(colorCodes, colorValues);
+    colorLabelMap = buildLabelMap(colorCodes, colorLabels);
+  }
+
   private void setupViews() {
-    binding.guess.setFilters(new InputFilter[]{this});
     binding.summit.setOnClickListener((view) -> recordGuess());
+    int maxCodeLength = getResources().getInteger(R.integer.code_length_pref_max);
+    spinners = new Spinner[maxCodeLength];
+    LayoutInflater inflater = LayoutInflater.from(getContext());
+  for (int i = 0; i < maxCodeLength; i++) {
+    Spinner spinner =
+        (Spinner) inflater.inflate(R.layout.swatch_spinner, binding.guessControls, false);
+    CodeCharacterAdapter adapter =
+        new CodeCharacterAdapter(getContext(), colorValueMap, colorLabelMap, codeCharacters, spinner);
+   spinner.setAdapter(adapter);
+   spinners[i] = spinner;
+   binding.guessControls.addView(spinner, i);
+
+   }
+
   }
 
   private void startGame() {
@@ -141,7 +166,7 @@ public class GameFragment extends Fragment implements InputFilter{
   }
 
   private void recordGuess() {
-    viewModel.guess(binding.guess.getText().toString().trim().toUpperCase());
+    // viewModel.guess(binding.guess.getText().toString().trim().toUpperCase());
 
   }
 
