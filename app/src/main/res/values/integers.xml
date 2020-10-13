@@ -6,4 +6,14 @@
   <integer name="code_length_pref_default">4</integer>
   <integer name="code_length_pref_increment">1</integer>
 
+  <integer-array name="color_values">
+    <item>@color/redSwatch</item>
+    <item>@color/orangeSwatch</item>
+    <item>@color/yellowSwatch</item>
+    <item>@color/greenSwatch</item>
+    <item>@color/blueSwatch</item>
+    <item>@color/indigoSwatch</item>
+    <item>@color/violetSwatch</item>
+  </integer-array>
+
 </resources>

@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <color name="colorPrimary">#6200EE</color>
-  <color name="colorPrimaryDark">#00000E</color>
+  <color name="colorPrimaryDark">#3700b3</color>
   <color name="colorAccent">#4CAF50</color>
+
+
+  <color name="redSwatch">#FF0000</color>
+  <color name="orangeSwatch">#FFFFA500</color>
+  <color name="yellowSwatch">#FFFFFF00</color>
+  <color name="greenSwatch">#FF00FF00</color>
+  <color name="blueSwatch">#0000FF</color>
+  <color name="indigoSwatch">#FF4b0082</color>
+  <color name="violetSwatch">#FFEE82EE</color>
+
 </resources>

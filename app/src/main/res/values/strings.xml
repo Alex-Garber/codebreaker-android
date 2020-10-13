@@ -13,6 +13,7 @@
   <string name="code_length_pref_title">Code length</string>
   <string name="code_length_pref_summary"><![CDATA[Length of secret code & required length of al guesses]]></string>
 
+<string name="color_codes">ROYGBIV</string>
 
   <string-array name="color_labels">
     <item>Red</item>
