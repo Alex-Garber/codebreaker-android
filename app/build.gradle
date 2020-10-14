@@ -36,7 +36,7 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     // Basic Android widgets
     implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
     // Material Design components
     implementation 'com.google.android.material:material:1.2.1'
     // Preferences/settings dependencies
@@ -48,9 +48,15 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
+    // ReactiveX dependencies
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.20'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
 
-
-
+// Room dependencies
+    def room_version = '2.2.5'
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+    implementation "androidx.room:room-rxjava2:$room_version"
 
 
     testImplementation 'junit:junit:4.13'
