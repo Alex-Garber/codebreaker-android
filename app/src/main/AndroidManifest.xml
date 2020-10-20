@@ -9,12 +9,8 @@
     android:name=".CodebreakerApplication"
     android:roundIcon="@mipmap/ic_launcher_round"
     android:supportsRtl="true"
-    android:theme="@style/AppTheme">
-    <activity
-      android:label="@string/title_activity_settings"
-      android:name=".controller.SettingsActivity"
-      android:parentActivityName=".controller.MainActivity">
-    </activity>
+    android:theme="@style/AppTheme.NoActionBar">
+
     <activity android:name=".controller.MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
