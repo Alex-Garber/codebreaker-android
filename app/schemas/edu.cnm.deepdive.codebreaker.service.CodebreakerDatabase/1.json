@@ -1,0 +1,69 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "3c5c9eccd1c896a7cae737df7991875c",
+    "entities": [
+      {
+        "tableName": "Score",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`game_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `timestamp` INTEGER NOT NULL, `guess_count` INTEGER NOT NULL, `code_length` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "game_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "timestamp",
+            "columnName": "timestamp",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "guessCount",
+            "columnName": "guess_count",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "codeLength",
+            "columnName": "code_length",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "game_id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_Score_timestamp",
+            "unique": false,
+            "columnNames": [
+              "timestamp"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Score_timestamp` ON `${TABLE_NAME}` (`timestamp`)"
+          },
+          {
+            "name": "index_Score_code_length",
+            "unique": false,
+            "columnNames": [
+              "code_length"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Score_code_length` ON `${TABLE_NAME}` (`code_length`)"
+          }
+        ],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3c5c9eccd1c896a7cae737df7991875c')"
+    ]
+  }
+}

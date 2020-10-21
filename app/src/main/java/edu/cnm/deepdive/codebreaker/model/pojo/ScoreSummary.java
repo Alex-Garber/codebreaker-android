@@ -6,7 +6,7 @@ public class ScoreSummary {
 
   @ColumnInfo(name= "code_length")
   private int codeLength;
-@ColumnInfo(name = "code_length")
+@ColumnInfo(name = "average_guess_count")
   private double averageGuessCount;
 
   public int getCodeLength() {

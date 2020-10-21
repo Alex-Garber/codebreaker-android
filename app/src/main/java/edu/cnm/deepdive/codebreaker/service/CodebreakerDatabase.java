@@ -11,7 +11,7 @@ import edu.cnm.deepdive.codebreaker.model.entity.Score;
 import edu.cnm.deepdive.codebreaker.service.CodebreakerDatabase.Converters;
 import java.util.Date;
 
-@Database(entities = {Score.class}, version = 1)
+@Database(entities = {Score.class}, version = 1, exportSchema = true)
 @TypeConverters({Converters.class})
 public abstract class CodebreakerDatabase extends RoomDatabase {
   // Name of file that is our data base
