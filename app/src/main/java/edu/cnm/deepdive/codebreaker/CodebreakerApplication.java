@@ -12,7 +12,7 @@ public class CodebreakerApplication extends Application {
     super.onCreate();
     Stetho.initializeWithDefaults(this);
     CodebreakerDatabase.setContext(this);
-    CodebreakerDatabase.getInstance().getGameDao().delete()
+    CodebreakerDatabase.getInstance().getScoreDao().delete()
         .subscribeOn(Schedulers.io())
         .subscribe();
   }

@@ -28,12 +28,7 @@ import edu.cnm.deepdive.codebreaker.viewmodel.MainViewModel;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GameFragment extends Fragment implements InputFilter{
-
-
-
-
-  private static final String INVALID_CHAR_PATTERN = String.format("[^%s]" , MainViewModel.pool);
+public class GameFragment extends Fragment {
 
 
 
@@ -71,22 +66,6 @@ public class GameFragment extends Fragment implements InputFilter{
     setupViewModel();
   }
 
-  @Override
-  public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int destart,
-      int destend) {
-    String modifiedSource = source.toString().toUpperCase().replaceAll(INVALID_CHAR_PATTERN, "");
-    StringBuilder builder = new StringBuilder(dest);
-    builder.replace(destart, destend, modifiedSource);
-    if (builder.length() > codeLength){
-      modifiedSource
-          = modifiedSource.substring(0, modifiedSource.length() - (builder.length() - codeLength));
-    }
-    int newLength = dest.length() - (destend - destart) +modifiedSource.length();
-    binding.summit.setEnabled(newLength == codeLength);
-    return modifiedSource;
-
-  }
-
 
   @Override
   public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
@@ -116,6 +95,7 @@ public class GameFragment extends Fragment implements InputFilter{
     //noinspection ConstantConditions
     adapter = new GuessAdapter(activity, colorValueMap, colorLabelMap);
     viewModel = new ViewModelProvider(activity).get(MainViewModel.class);
+    getLifecycle().addObserver(viewModel);
     LifecycleOwner lifecycleOwner = getViewLifecycleOwner();
     viewModel.getGame().observe(lifecycleOwner, this::updateGameDisplay);
     viewModel.getSolved().observe(lifecycleOwner, solved ->

@@ -6,12 +6,12 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverter;
 import androidx.room.TypeConverters;
-import edu.cnm.deepdive.codebreaker.model.dao.GameDao;
-import edu.cnm.deepdive.codebreaker.model.entity.Game;
+import edu.cnm.deepdive.codebreaker.model.dao.ScoreDao;
+import edu.cnm.deepdive.codebreaker.model.entity.Score;
 import edu.cnm.deepdive.codebreaker.service.CodebreakerDatabase.Converters;
 import java.util.Date;
 
-@Database(entities = {Game.class}, version = 1)
+@Database(entities = {Score.class}, version = 1)
 @TypeConverters({Converters.class})
 public abstract class CodebreakerDatabase extends RoomDatabase {
   // Name of file that is our data base
@@ -28,7 +28,7 @@ public abstract class CodebreakerDatabase extends RoomDatabase {
 
   }
   // creates a way to get instance of GameDao
-  public abstract GameDao getGameDao();
+  public abstract ScoreDao getScoreDao();
 // Builder builds what INSTANCE holds ie the database
   private static class InstanceHolder {
     private static final CodebreakerDatabase INSTANCE =
