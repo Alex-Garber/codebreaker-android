@@ -13,8 +13,10 @@
   <string name="code_length_pref_title">Code length</string>
   <string name="code_length_pref_summary"><![CDATA[Length of secret code & required length of al guesses]]></string>
 
-<string name="color_codes">ROYGBIV</string>
+  <string name="color_codes">ROYGBIV</string>
 
+  <string name="hello_blank_fragment">Hello blank fragment</string>
+  <!-- TODO: Remove or change this placeholder text -->
   <string-array name="color_labels">
     <item>Red</item>
     <item>Orange</item>

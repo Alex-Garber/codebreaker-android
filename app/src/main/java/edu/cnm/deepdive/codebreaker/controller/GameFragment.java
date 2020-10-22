@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import edu.cnm.deepdive.codebreaker.R;
 import edu.cnm.deepdive.codebreaker.adapter.CodeCharacterAdapter;
 import edu.cnm.deepdive.codebreaker.adapter.GuessAdapter;
@@ -148,6 +149,8 @@ public class GameFragment extends Fragment implements InputFilter{
 
   private void setupViews() {
     binding.summit.setOnClickListener((view) -> recordGuess());
+    binding.summary.setOnClickListener((view) -> Navigation.findNavController(getView())
+            .navigate(R.id.action_navigation_game_to_navigation_summary));
     int maxCodeLength = getResources().getInteger(R.integer.code_length_pref_max);
     spinners = new Spinner[maxCodeLength];
     LayoutInflater inflater = LayoutInflater.from(getContext());

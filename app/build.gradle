@@ -44,6 +44,7 @@ dependencies {
     // Fragment navigation depend
     implementation "androidx.navigation:navigation-fragment:$navigation_version"
     implementation "androidx.navigation:navigation-ui:$navigation_version"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     // Lifecycle (LiveData and ViewModel) dependencies
     def lifecycle_version = '2.2.0'

@@ -9,11 +9,21 @@
     android:id="@+id/navigation_game"
     android:label="@string/app_name"
     android:name="edu.cnm.deepdive.codebreaker.controller.GameFragment"
-    tools:layout="@layout/fragment_game"/>
+    tools:layout="@layout/fragment_game">
+    <action
+      android:id="@+id/action_navigation_game_to_navigation_summary"
+      app:destination="@id/navigation_summary"
+      app:popUpTo="@id/navigation_game"/>
+  </fragment>
 
   <fragment
     android:id="@+id/navigation_settings"
     android:label="@string/title_activity_settings"
     android:name="edu.cnm.deepdive.codebreaker.controller.SettingFragment"/>
+
+  <fragment
+    android:id="@+id/navigation_summary"
+    android:label="Summary"
+    android:name="edu.cnm.deepdive.codebreaker.controller.SummaryFragment"/>
 
 </navigation>
